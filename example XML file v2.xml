@@ -1,0 +1,77 @@
+<log>
+
+  <object-types>
+    <object-type name="Order">
+      <attributes>
+        <attribute name="status" type="string"/>
+      </attributes>
+    </object-type>
+    <object-type name="Payment">
+      <attributes>
+        <attribute name="method" type="string"/>
+      </attributes>
+    </object-type>
+    <object-type name="Shipment">
+      <attributes>
+        <attribute name="carrier" type="string"/>
+      </attributes>
+    </object-type>
+  </object-types>
+  
+  <event-types>
+    <event-type name="Order is placed">
+      <attributes/>
+    </event-type>
+    <event-type name="Payment is processed">
+      <attributes/>
+    </event-type>
+    <event-type name="Order is shipped">
+      <attributes/>
+    </event-type>
+  </event-types>
+  
+  <objects>
+    <object id="o1" type="Order">
+      <attributes>
+        <attribute name="status" time="2024-11-14T00:00:00.000+00:00">isPlaced</attribute>
+        <attribute name="status" time="2024-11-15T00:00:00.000+00:00">isPaid</attribute>
+        <attribute name="status" time="2024-11-19T00:00:00.000+00:00">isShipped</attribute>
+      </attributes>
+      <objects>
+        <relationship object-id="p1" qualifier="Payment of o1"/>
+        <relationship object-id="s1" qualifier="Shipment of o1"/>
+      </objects>
+   </object>
+    <object id="p1" type="Payment">
+      <attributes>
+        <attribute name="method" time="1970-01-01T00:00:00.000+00:00">Paypal</attribute>
+      </attributes>
+   </object>
+    <object id="s1" type="Shipment">
+      <attributes>
+        <attribute name="carrier" time="1970-01-01T00:00:00.000+00:00">Post</attribute>
+      </attributes>
+    </object>
+  </objects>
+  
+  <events>
+    <event id="e1" type="Order is placed" time="2024-11-14T00:00:00.000+00:00">
+      <objects>
+        <relationship object-id="o1" qualifier="Order placed"/>
+      </objects>
+    </event>
+    <event id="e2" type="Payment is processed" time="2024-11-15T00:00:00.000+00:00">
+      <objects>
+        <relationship object-id="o1" qualifier="Payment for order"/>
+        <relationship object-id="p1" qualifier="Payment ID"/>
+      </objects>
+    </event>
+    <event id="e3" type="Order is shipped" time="2024-11-19T00:00:00.000+00:00">
+      <objects>
+        <relationship object-id="o1" qualifier="Order shipped"/>
+        <relationship object-id="s1" qualifier="Shipment ID"/>
+      </objects>
+    </event>
+  </events>
+  
+</log>
